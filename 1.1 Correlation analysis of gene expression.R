@@ -1,5 +1,5 @@
 # Correlation of gene expression level
-load("dat_output/通路基因生存分析及表达谱分析结果.Rdata")
+load("dat_output/Results of survival analysis and expression profile analysis of pathway genes.Rdata")
 load("dat_input/NSCLC-exp-clin-data.Rdata")
 
 library(tidyverse)
@@ -22,8 +22,6 @@ gene.important.tab%>%
   unique()->
   gene.pro
 
-gene.pro%in%gene.danger  #RPS6KA3 results contradict each other and need to be removed.
-
 
 NSCLC_fpkm %>%
   t() %>% 
@@ -38,14 +36,6 @@ cor.res <- cor(gene.imp.exp)
 p.mat <- round(cor_pmat(gene.imp.exp),3)
 
 
-# As long as the correlation coefficient is greater than or equal to 0.3 above the display
-if (F) {
-  
-  
-  # sigmat <- apply(cor.res,2,function(x){res <- ifelse(abs(x)<0.3,T,F) })
-  # 
-  # p.mat[sigmat] <- 1# Arbitrary assignment，让它大于0.05
-}
 
 
 #Adjust the order so that risk genes come first and protective genes come later
